@@ -7,7 +7,12 @@
 
 using namespace std;
 
-// Node struct.
+struct AssignmentGroup {
+  string name;
+  double weight;
+  double grade;
+  map<string, double> assignments;
+};
 struct MyClass {
   string name;
   int grade;
@@ -15,24 +20,18 @@ struct MyClass {
   vector<AssignmentGroup> groups;
 };
 
-struct AssignmentGroup {
-  string type;
-  double weight;
-  map<string, double> assignments;
-};
 
-class GPA {
+class Semester {
  public:
-  GPA();
-  GPA(const GPA&);
-  ~GPA();
+  Semester();
+  Semester(const Semester&);
+  ~Semester();
+  void print();
 
  private:
-  int semGrade;
+  double semGrade;
+  int totalCredits;
   vector<MyClass> classes;
-  double overallGPA;
-  vector<double> GPAs;
-  int semester;
 };
 
 #endif
