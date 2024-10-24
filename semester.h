@@ -27,7 +27,7 @@ class Semester {
   Semester(const Semester&);
   ~Semester();
   void print();
-
+  int calculateGrade();
  private:
   double semGrade;
   int totalCredits;
