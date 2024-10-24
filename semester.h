@@ -11,7 +11,7 @@ using namespace std;
 struct MyClass {
   string name;
   int grade;
-  int credit;
+  int credits;
   vector<AssignmentGroup> groups;
 };
 
