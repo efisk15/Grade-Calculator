@@ -1,4 +1,5 @@
 #include "semester.h"
+#include <stdio.h>
 
 Semester::Semester() {}
 
@@ -20,4 +21,32 @@ void Semester::print() {
     }
     cout << endl;
   }
+}
+int Semester::calculateGrade()
+{
+    // int MyClass.grade = 0;
+    // int MyClass.credits = 0;
+
+    map<string, double> gradepoints;
+    gradepoints["A"] = 4.00;
+    gradepoints["A-"] = 3.67;
+    gradepoints["B+"] = 3.33;
+    gradepoints["B"] = 3.00;
+    gradepoints["B-"] = 2.67;
+    gradepoints["C+"] = 2.33;
+    gradepoints["C"] = 2.00;
+    gradepoints["C-"] = 1.67;
+    gradepoints["D+"] = 1.33;
+    gradepoints["D"] = 1.00;
+    gradepoints["D-"] = 0.67;
+    gradepoints["F"] = 0.00;
+
+    double SemGPA = 0.0;
+    for (size_t i = 0; i < classes.size(); i++)
+    {
+        // calculate the grade points
+        SemGPA += classes[i].grade * classes[i].credits;
+    }
+
+    return 0;
 }
