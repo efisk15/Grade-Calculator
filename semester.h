@@ -16,23 +16,24 @@ struct MyClass {
 };
 
 struct AssignmentGroup {
-  string type;
+  string name;
   double weight;
   map<string, double> assignments;
 };
 
-class GPA {
+class Semester {
  public:
-  GPA();
-  GPA(const GPA&);
-  ~GPA();
+  Semester();
+  Semester(const Semester&);
+  ~Semester();
 
  private:
   int semGrade;
-  vector<MyClass> classes;
   double overallGPA;
+  string semester;
+  int totalCredits;
+  vector<MyClass> classes;
   vector<double> GPAs;
-  int semester;
 };
 
 #endif
