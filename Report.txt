@@ -10,6 +10,24 @@ orgnaize .h files and keep each part of the code more visibly appealing.
 
 Describe at least one data structure we have covered that would be useful 
 and explain why.
+i used a map for the callulating how much the overall is affected, based on what letter grade is achieved the certiain amount of credits will be allocated and 
+based on that divided on the total amount of credit take wil the final gpa be calculated. Using a map is advantageous because it’s easy to traverse and update 
+compared to a vector, making my calculations more straightforward and efficient. which would streamline the calculation process. 
 
-Provides at a high level least two test cases/unit
+provides at a high level least two test cases/unit
       tests for the problem outlined above (2 pts each)
+
+2 test cases: 
+
+Test Case 1: Fully Graduated Student
+Scenario: A fully graduated student with one major and one minor.
+Input: The student has varying grades across multiple courses with different credit levels.
+Expected Output: The GPA should be calculated accurately based on the grades and credit hours, reflecting the student's performance in both the major and minor.
+
+Test Case 2: Sophomore Student with Multiple Minors
+Scenario: A sophomore student pursuing one major and two minors.
+Input: The student has similar grades across courses with varying credit levels and different grading weight methods.
+Weighting methods could include:
+Test-heavy assessments
+Assignment-heavy evaluations
+Participation-heavy contributions
