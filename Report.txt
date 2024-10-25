@@ -8,7 +8,6 @@ Pros and cons of using classes (OOP) for this specific idea/problem
 Using classes enables us to separate different methods of calculating GPAs for both semester and cumulative assessments. 
 It also allows us to organize the header files more clearly, keeping each part of the code visually appealing and easier to navigate.
 
-
 Describe at least one data structure we have covered that would be useful 
 and explain why.
 
@@ -17,12 +16,6 @@ Each letter grade is associated with a specific number of credits, allowing me t
 The final GPA is calculated by dividing the total grade points by the total credits taken. Using a map is advantageous because it’s
  easier to traverse and update compared to a vector, which makes my calculations more straightforward and efficient. 
  This approach helps streamline the GPA calculation process.
-
-
-
-
-
-
 
 
 provides at a high level least two test cases/unit tests for the problem outlined above (2 pts each)
