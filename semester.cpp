@@ -57,6 +57,7 @@ int Semester::calculateGrade()
   gradepoints["D"] = 1.00;
   gradepoints["D-"] = 0.67;
   gradepoints["F"] = 0.00;
+  
   double SemGPA = 0.0;
 
   // take the amount of grade points and multiply it by the amount of credits the class is worth
