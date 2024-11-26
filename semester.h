@@ -7,17 +7,10 @@
 
 using namespace std;
 
-struct AssignmentGroup {
-  string name;
-  double weight;
-  double grade;
-  map<string, double> assignments;
-};
 struct MyClass {
   string name;
   int grade;
   int credits;
-  vector<AssignmentGroup> groups;
 };
 
 
@@ -28,8 +21,10 @@ class Semester {
   ~Semester();
   void print();
   int calculateGrade();
+  double getSemGPA();
+  int getTotalCredits();
  private:
-  double semGrade;
+  double semGPA;
   int totalCredits;
   vector<MyClass> classes;
 };
