@@ -1,12 +1,9 @@
 #ifndef _COLLEGE_H_
 #define _COLLEGE_H_
-
 #include <iostream>
 #include <map>
 #include <vector>
-
 using namespace std;
-
 struct MyClass {
   string name;
   int grade;
@@ -19,7 +16,6 @@ struct Semester {
   vector<MyClass> classes;
 };
 
-
 class College {
  public:
   College();
@@ -30,12 +26,10 @@ class College {
   double getSemGPA();
   int getTotalCredits();
   bool createFile();
+  void addSemester();
  private:
   double totalGPA;
   int totalCredits;
   vector<Semester> semesters;
 };
-
 #endif
-
-

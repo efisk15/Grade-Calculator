@@ -2,10 +2,8 @@
 #include <iostream>
 #include <map>
 #include <sstream>
-
 #include "college.h"
 using namespace std;
-
 
 int main() {
   cout << "Welcome to GPA Calculator!!" << endl;
@@ -14,7 +12,6 @@ int main() {
           "get the GPA data from the file."
        << endl;
   College *MyGPA = new College();
-
   string input = "";
   while (true) {
     cin >> input;
@@ -27,7 +24,7 @@ int main() {
       if (cin >> inputFile) {
       };
     } else if (input == "-as") {
-      // Add semester
+      MyGPA->addSemester();
     } else if (input == "-gpa") {
       // Print GPA
     } else if (input == "-pc") {

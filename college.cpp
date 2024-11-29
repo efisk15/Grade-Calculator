@@ -1,18 +1,12 @@
+#include "college.h"
 #include <stdio.h>
-
 #include <fstream>
 #include <iostream>
 #include <map>
 #include <sstream>
-
-#include "college.h"
-
 College::College() {}
-
 College::College(const College &SemesterToCopy) {}
-
 College::~College() {}
-
 void College::print() {}
 // order of calulations
 // gpa - smester - classes value - credits - glass gpa - grading wieghts -
@@ -26,11 +20,9 @@ int AssignmentGroup() {
 }
 // int MyClass.grade = 0;
 // int MyClass.credits = 0
-
 int College::calculateSemGrade(Semester sem) {
   // int MyClass.grade = 0;
   // int MyClass.credits = 0;
-
   map<string, double> gradepoints;
   gradepoints["A"] = 4.00;
   gradepoints["A-"] = 3.67;
@@ -44,38 +36,56 @@ int College::calculateSemGrade(Semester sem) {
   gradepoints["D"] = 1.00;
   gradepoints["D-"] = 0.67;
   gradepoints["F"] = 0.00;
-
   double SemGPA = 0.0;
-
   // take the amount of grade points and multiply it by the amount of credits
   // the class is worth
-
   for (size_t i = 0; i < sem.classes.size(); i++) {
     // calculate the grade points
     SemGPA += sem.classes[i].grade * sem.classes[i].credits;
   }
-
   return 0;
 }
-
 double College::getSemGPA() { double semGPA; }
 int College::getTotalCredits() { return totalCredits; }
+void College::addSemester() {
+  cin.clear();   // Clear any error flags
+  cin.ignore();  // Ignore leftover input
+  string response;
+  cout << endl
+       << "What is the name of the semester that you would like to add?"
+       << endl;
+  cout << "(Recommended Ex. Spring 2024)" << endl;
+  if (semesters.size() > 0) {
+    cout << "Current Semesters added: " << endl;
+    for (size_t i = 0; i < semesters.size(); i++) {
+      cout << semesters[i].semName << endl;
+    }
+    cout << endl;
+    cout << "If you already see your semester listed, enter -q to go back."
+         << endl;
+  }
+  std::getline(cin, response);
+  if (response == "-q") {
+    return;
+  }
+  Semester newSem;
+  newSem.semName = response;
+  semesters.push_back(newSem);
+}
 bool College::createFile() {
   while (1) {
     string fileName = "";
     cout << "What file would you like to save your GPA information to?" << endl;
     cout << "Please enter the name a text file (Ex. gpa.txt)";
     cin >> fileName;
-
     ofstream outFile(fileName);
-    if(outFile.fail()) {
+    if (outFile.fail()) {
       outFile.clear();
       continue;
     }
     outFile << "This is your GPA calculator file." << endl << endl;
     outFile << "Total GPA: " << endl;
     outFile << "Total Credits: " << totalCredits << endl << endl;
-
     outFile << "------------------------------------------------" << endl;
     for (size_t i = 0; i < semesters.size(); i++) {
       outFile << semesters[i].semName << endl;
@@ -92,6 +102,5 @@ bool College::createFile() {
     outFile.close();
     break;
   }
-
   return true;
 }
