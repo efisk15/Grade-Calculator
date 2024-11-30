@@ -17,7 +17,7 @@ int AssignmentGroup()
   double weight;
   double grade;
   // possibly read in assignments from file
-  map<string, double> assignments = {};
+  // map<string, double> assignments = {};
 }
 // int MyClass.grade = 0;
 // int MyClass.credits = 0
@@ -102,7 +102,7 @@ bool College::createFile()
     cout << "What file would you like to save your GPA information to?" << endl;
     cout << "Please enter the name a text file (Ex. gpa.txt)";
     cin >> fileName;
-    ofstream outFile(fileName);
+    ofstream outFile(fileName.c_str());
     if (outFile.fail())
     {
       outFile.clear();
