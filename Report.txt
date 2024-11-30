@@ -5,7 +5,7 @@ Four hours tracked towards the final lab (2 pts each)
 30 min - writing out code for map of grades
 15 min - discussing how we are going to read the information in either via file or via terminal
 45 min - adjusting code for reading in via terminal. (plan for now if to read in via terminal, may change later.)
-
+45 min - writing semester gpa calculation, resturcturing make file
 
 Pros and cons of using classes (OOP) for this specific idea/problem 
 

@@ -57,12 +57,12 @@ double College::getSemGPA()
   return semGPA;
 }
 
-void College::addSemester()
-{
-  Semester sem;
-  semesters.push_back(sem);
-  totalCredits += sem.semCredits;
-}
+// void College::addSemester()
+// {
+//   Semester sem;
+//   semesters.push_back(sem);
+//   totalCredits += sem.semCredits;
+// }
 
 int College::getTotalCredits() { return totalCredits; }
 void College::addSemester()
