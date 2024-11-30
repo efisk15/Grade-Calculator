@@ -1,0 +1,31 @@
+#!/bin/bash
+echo "Test Case 1: Fully Graduated Student"
+
+# Prepare input
+cat > input1.txt <<EOF
+3
+Major
+A 4
+B 3
+C 2
+Minor
+A 3
+B 4
+C 2
+EOF
+
+# Expected output
+expected_output="Calculated GPA: 3.0"
+
+# Run the program
+./main < input1.txt > output1.txt
+
+# Compare output
+if grep -q "$expected_output" output1.txt; then
+    echo "PASS: GPA calculated correctly."
+else
+    echo "FAIL: Output does not match expected."
+    echo "Expected: $expected_output"
+    echo "Got:"
+    cat output1.txt
+fi

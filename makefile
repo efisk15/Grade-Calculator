@@ -18,6 +18,7 @@ College.o: college.cpp college.h
 # Run grade scripts
 test: main
 	@echo "Running grade scripts..."
+	@./gradescript1 && ./gradescript2
 	@for script in gradescript*; do \
 		echo "Executing $$script"; \
 		bash $$script || break; \
