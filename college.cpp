@@ -26,18 +26,10 @@ int College::calculateSemGrade(Semester sem)
   // int MyClass.grade = 0;
   // int MyClass.credits = 0;
   map<string, double> gradepoints;
-  gradepoints["A"] = 4.00;
-  gradepoints["A-"] = 3.67;
-  gradepoints["B+"] = 3.33;
-  gradepoints["B"] = 3.00;
-  gradepoints["B-"] = 2.67;
-  gradepoints["C+"] = 2.33;
-  gradepoints["C"] = 2.00;
-  gradepoints["C-"] = 1.67;
-  gradepoints["D+"] = 1.33;
-  gradepoints["D"] = 1.00;
-  gradepoints["D-"] = 0.67;
-  gradepoints["F"] = 0.00;
+  gradepoints["A"] = 4.00;  gradepoints["A-"] = 3.67; gradepoints["B+"] = 3.33;
+  gradepoints["B"] = 3.00;  gradepoints["B-"] = 2.67; gradepoints["C+"] = 2.33;
+  gradepoints["C"] = 2.00;  gradepoints["C-"] = 1.67; gradepoints["D+"] = 1.33;
+  gradepoints["D"] = 1.00;  gradepoints["D-"] = 0.67; gradepoints["F"] = 0.00;
   double SemGPA = 0.0;
   // take the amount of grade points and multiply it by the amount of credits
   // the class is worth
@@ -46,7 +38,14 @@ int College::calculateSemGrade(Semester sem)
     // calculate the grade points
     SemGPA += sem.classes[i].grade * sem.classes[i].credits;
   }
-  return 0;
+  if (sem.semCredits == 0)
+  {
+    return 0;
+  }else{
+    return SemGPA / sem.semCredits;
+  }
+
+ 
 }
 double College::getSemGPA()
 {
