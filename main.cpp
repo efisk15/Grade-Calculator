@@ -16,7 +16,7 @@ int main() {
   while (true) {
     cin >> input;
     if (input == "-ac") {
-      // Add class
+      MyGPA->addClass();
     } else if (input == "-if") {
       // Get past input
       cout << "What file would you like to copy information from?" << endl;
@@ -31,8 +31,12 @@ int main() {
       cout << "Print classes" << endl;
       // Print classes
     } else if (input == "-ps") {
-      cout << "Print semester" << endl;
-      // Print semester
+      MyGPA->printSem();
+      
+    }
+    else if (input == "-cc") {
+      MyGPA->changeClass();
+      
     } else if (input == "-q") {
       break;
     } else if (input == "-stf") {
@@ -43,6 +47,7 @@ int main() {
       cout << "Add semester:    -as" << endl;
       cout << "Add assignment:  -aa" << endl;
       cout << "Print GPA:       -gpa" << endl;
+      cout << "Change class:    -cc" << endl;
       cout << "Print classes:   -pc" << endl;
       cout << "Print semesters: -ps" << endl;
       cout << "" << endl;
