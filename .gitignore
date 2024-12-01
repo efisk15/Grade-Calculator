@@ -1,0 +1,4 @@
+# Ignore object files
+*.o
+# Ignore specific tools or additional artifacts (adjust as needed)
+*.exe   # Windows executables
