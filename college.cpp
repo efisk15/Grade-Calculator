@@ -220,6 +220,7 @@ void College::printSem() {
   }
 
   cout << endl << "--------------------------" << endl;
+  return;
 }
 void College::changeClass() {
   cin.clear();   // Clear any error flags
@@ -296,5 +297,123 @@ void College::changeClass() {
       cout
           << "Invalid input. Please enter a valid number or '-q' to go back.\n";
     }
+  }
+}
+void College::deleteClass() {
+  cin.clear();   // Clear any error flags
+  cin.ignore();  // Ignore leftover input
+  size_t resp;
+
+  // Select semester
+  while (true) {
+    cout << "\nWhat semester is the class you would like to delete in? (Enter "
+            "the number of the semester)\n";
+    for (size_t i = 0; i < semesters.size(); i++) {
+      cout << i + 1 << ": " << semesters[i].semName << endl;
+    }
+    cout << endl;
+
+    if (cin >> resp && resp > 0 && resp <= semesters.size()) {
+      resp--;  // Adjust for zero-based indexing
+      break;
+    } else {
+      cout << "Invalid input. Please enter a number between 1 and "
+           << semesters.size() << ".\n";
+      cin.clear();   // Clear any error flags
+      cin.ignore();  // Ignore leftover input
+    }
+  }
+
+  // Select class within the chosen semester
+  while (true) {
+    if (semesters[resp].classes.empty()) {
+      cout << "There are no classes in this semester.\n";
+      return;
+    }
+
+    cout << "Here are the classes within the semester you selected:\n";
+    for (size_t i = 0; i < semesters[resp].classes.size(); i++) {
+      cout << i + 1 << ": " << semesters[resp].classes[i].name << endl;
+    }
+    cout << "\nEnter the number of the class you would like to delete.\n";
+    cout << "If you do not see the class you wish to delete, enter -q to go "
+            "back.\n";
+
+    string response;
+    cin >> response;
+
+    if (response == "-q") {
+      return;
+    }
+
+    if (all_of(response.begin(), response.end(), ::isdigit)) {
+      size_t num = stoi(response) - 1;
+
+      if (num >= 0 && num < semesters[resp].classes.size()) {
+        vector<MyClass> tempClasses;
+        for (size_t j = 0; j < semesters[resp].classes.size(); j++) {
+          if (j == num) {
+            continue;
+          }
+          tempClasses.push_back(semesters[resp].classes[j]);
+        }
+        cout << "\nThe class " << semesters[resp].classes[num].name
+             << " has successfully been deleted.\n";
+        semesters[resp].classes = tempClasses;
+        return;
+
+      } else {
+        cout << "Invalid class number. Please enter a valid number.\n";
+      }
+    } else {
+      cout
+          << "Invalid input. Please enter a valid number or '-q' to go back.\n";
+    }
+  }
+}
+
+void College::deleteSem() {
+  cin.clear();   // Clear any error flags
+  cin.ignore();  // Ignore leftover input
+  if (semesters.size() > 0) {
+    cout << "Current Semesters: " << endl;
+    for (size_t i = 0; i < semesters.size(); i++) {
+      cout << i + 1 << ": " << semesters[i].semName << endl;
+    }
+    cout << endl
+         << "What is the number of the semester that you would like to delete?"
+         << endl;
+    cout << "If you do not see the semester listed, it does not exist, enter "
+            "-q to go back."
+         << endl;
+  }
+  string response;
+  cin >> response;
+
+  if (response == "-q") {
+    return;
+  }
+
+  if (all_of(response.begin(), response.end(), ::isdigit)) {
+    size_t num = stoi(response) - 1;
+
+    if (num >= 0 && num < semesters.size()) {
+      vector<Semester> tempSem;
+      for (size_t j = 0; j < semesters.size(); j++) {
+        if (j == num) {
+          continue;
+        }
+        tempSem.push_back(semesters[j]);
+      }
+      cout << "\nThe semester " << semesters[num].semName
+           << " has successfully been deleted.\n";
+      semesters = tempSem;
+      return;
+
+    } else {
+      cout << "Invalid class number. Please enter a valid number.\n";
+    }
+  } else {
+    cout << "Invalid input. Please enter a valid number or '-q' to go back.\n";
   }
 }

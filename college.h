@@ -30,6 +30,8 @@ class College {
   void addClass();
   void printSem();
   void changeClass();
+  void deleteClass();
+  void deleteSem();
  private:
   double totalGPA;
   int totalCredits;
