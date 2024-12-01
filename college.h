@@ -6,7 +6,7 @@
 using namespace std;
 struct MyClass {
   string name;
-  int grade;
+  double grade;
   int credits;
 };
 struct Semester {
@@ -27,6 +27,9 @@ class College {
   int getTotalCredits();
   bool createFile();
   void addSemester();
+  void addClass();
+  void printSem();
+  void changeClass();
  private:
   double totalGPA;
   int totalCredits;
