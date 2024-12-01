@@ -3,3 +3,4 @@
 # Ignore specific tools or additional artifacts (adjust as needed)
 *.exe   # Windows executables
 *.txt
+main.exe
