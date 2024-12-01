@@ -25,7 +25,11 @@ int main() {
       };
     } else if (input == "-as") {
       MyGPA->addSemester();
-    } else if (input == "-gpa") {
+    } else if (input == "-dc") {
+      MyGPA->deleteClass();
+    } else if (input == "-ds") {
+      MyGPA->deleteSem();
+    }else if (input == "-gpa") {
       // Print GPA
     } else if (input == "-pc") {
       cout << "Print classes" << endl;
@@ -46,6 +50,8 @@ int main() {
       cout << "Add class:       -ac" << endl;
       cout << "Add semester:    -as" << endl;
       cout << "Add assignment:  -aa" << endl;
+      cout << "Delete semester: -ds" << endl;
+      cout << "Delete class:    -dc" << endl;
       cout << "Print GPA:       -gpa" << endl;
       cout << "Change class:    -cc" << endl;
       cout << "Print classes:   -pc" << endl;
