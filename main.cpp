@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+
 #include "college.h"
 using namespace std;
 
@@ -19,28 +20,21 @@ int main() {
       MyGPA->addClass();
     } else if (input == "-if") {
       // Get past input
-      cout << "What file would you like to copy information from?" << endl;
-      string inputFile;
-      if (cin >> inputFile) {
-      };
+      MyGPA->readFile();
     } else if (input == "-as") {
       MyGPA->addSemester();
     } else if (input == "-dc") {
       MyGPA->deleteClass();
     } else if (input == "-ds") {
       MyGPA->deleteSem();
-    }else if (input == "-gpa") {
+    } else if (input == "-gpa") {
       // Print GPA
-    } else if (input == "-pc") {
-      cout << "Print classes" << endl;
-      // Print classes
     } else if (input == "-ps") {
       MyGPA->printSem();
-      
-    }
-    else if (input == "-cc") {
+
+    } else if (input == "-cc") {
       MyGPA->changeClass();
-      
+
     } else if (input == "-q") {
       break;
     } else if (input == "-stf") {
@@ -49,12 +43,10 @@ int main() {
       // Print commands
       cout << "Add class:       -ac" << endl;
       cout << "Add semester:    -as" << endl;
-      cout << "Add assignment:  -aa" << endl;
       cout << "Delete semester: -ds" << endl;
       cout << "Delete class:    -dc" << endl;
       cout << "Print GPA:       -gpa" << endl;
       cout << "Change class:    -cc" << endl;
-      cout << "Print classes:   -pc" << endl;
       cout << "Print semesters: -ps" << endl;
       cout << "" << endl;
       cout << "Print commands:  -cds" << endl;
