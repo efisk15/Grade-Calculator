@@ -8,6 +8,7 @@ struct MyClass {
   string name;
   double grade;
   int credits;
+  bool major;
 };
 struct Semester {
   string semName;
