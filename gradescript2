@@ -1,24 +1,59 @@
 #!/bin/bash
-
 echo "Test Case 2: Sophomore Student with Multiple Minors"
 
 # Prepare input
 cat > input2.txt <<EOF
 -as
 Major
-B 3
-A 3
-B 4
+-ac
+1
+Math101
+3
+85
+-ac
+1
+CS202
+3
+90
+-ac
+1
+Hist200
+4
+78
 -as
 Minor1
-A 3
-B 3
-C 2
+-ac
+2
+Art101
+3
+95
+-ac
+2
+Econ201
+3
+85
+-ac
+2
+Phil202
+2
+70
 -as
 Minor2
-B 3
-C 4
-B 2
+-ac
+3
+Bio101
+3
+88
+-ac
+3
+Chem202
+4
+75
+-ac
+3
+Phys200
+2
+80
 -gpa
 -q
 EOF

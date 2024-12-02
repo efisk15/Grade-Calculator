@@ -1,19 +1,16 @@
 #!/bin/bash
+echo "Running test cases for GPA Calculator..."
 
+# Test Case 1: Fully Graduated Student
 echo "Test Case 1: Fully Graduated Student"
-
-# Prepare input
 cat > input1.txt <<EOF
 -as
-Major
-A 4
-B 3
-C 2
--as
-Minor
-A 3
-B 4
-C 2
+Spring 2024
+-ac
+1
+COSC 202
+3
+92
 -gpa
 -q
 EOF
@@ -21,14 +18,12 @@ EOF
 # Expected output
 expected_output="Calculated GPA: 3.0"
 
-# Run the program
+# Run the program and compare output
 ./main < input1.txt > output1.txt
-
-# Compare output
 if grep -q "$expected_output" output1.txt; then
-    echo "PASS: GPA calculated correctly."
+    echo "PASS: Test Case 1"
 else
-    echo "FAIL: Output does not match expected."
+    echo "FAIL: Test Case 1"
     echo "Expected: $expected_output"
     echo "Got:"
     cat output1.txt
