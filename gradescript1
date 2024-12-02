@@ -1,17 +1,21 @@
 #!/bin/bash
+
 echo "Test Case 1: Fully Graduated Student"
 
 # Prepare input
 cat > input1.txt <<EOF
-3
+-as
 Major
 A 4
 B 3
 C 2
+-as
 Minor
 A 3
 B 4
 C 2
+-gpa
+-q
 EOF
 
 # Expected output

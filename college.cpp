@@ -14,19 +14,18 @@ void College::print() {}
 // order of calulations
 // gpa - smester - classes value - credits - glass gpa - grading wieghts -
 // assignment grades
-int AssignmentGroup() {
-  string name;
-  double weight;
-  double grade;
-  return 0;
-  // possibly read in assignments from file
-  // map<string, double> assignments = {};
-}
-// int MyClass.grade = 0;
-// int MyClass.credits = 0
+
+// int AssignmentGroup() {
+//   string name;
+//   double weight;
+//   double grade;
+//   return 0;
+//   // possibly read in assignments from file
+//   // map<string, double> assignments = {};
+// }
+
 int College::calculateSemGrade(Semester sem) {
-  // int MyClass.grade = 0;
-  // int MyClass.credits = 0;
+  
   map<string, double> gradepoints;
   gradepoints["A"] = 4.00;
   gradepoints["A-"] = 3.67;
@@ -68,7 +67,9 @@ double College::getSemGPA() {
 //   totalCredits += sem.semCredits;
 // }
 
-int College::getTotalCredits() { return totalCredits; }
+int College::getTotalCredits() { return totalCredits; 
+  
+}
 void College::addSemester() {
   cin.clear();   // Clear any error flags
   cin.ignore();  // Ignore leftover input

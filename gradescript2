@@ -1,21 +1,26 @@
 #!/bin/bash
+
 echo "Test Case 2: Sophomore Student with Multiple Minors"
 
 # Prepare input
 cat > input2.txt <<EOF
-3
+-as
 Major
 B 3
 A 3
 B 4
+-as
 Minor1
 A 3
 B 3
 C 2
+-as
 Minor2
 B 3
 C 4
 B 2
+-gpa
+-q
 EOF
 
 # Expected output
