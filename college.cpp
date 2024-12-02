@@ -25,7 +25,6 @@ void College::print() {}
 // }
 
 int College::calculateSemGrade(Semester sem) {
-  
   map<string, double> gradepoints;
   gradepoints["A"] = 4.00;
   gradepoints["A-"] = 3.67;
@@ -67,9 +66,7 @@ double College::getSemGPA() {
 //   totalCredits += sem.semCredits;
 // }
 
-int College::getTotalCredits() { return totalCredits; 
-  
-}
+int College::getTotalCredits() { return totalCredits; }
 void College::addSemester() {
   cin.clear();   // Clear any error flags
   cin.ignore();  // Ignore leftover input
@@ -96,6 +93,7 @@ void College::addSemester() {
   newSem.semCredits = 0;
   newSem.semGPA = 0;
   semesters.push_back(newSem);
+  cout << endl << "Successfully created semester." << endl;
 }
 bool College::createFile() {
   while (1) {
@@ -118,12 +116,17 @@ bool College::createFile() {
       outFile << "Semester GPA: " << semesters[i].semGPA << endl << endl;
       outFile << "        <------------------------->" << endl;
       for (size_t j = 0; j < semesters[i].classes.size(); j++) {
-        outFile << "          Class:   " << semesters[i].classes[j].name
+        outFile << "          Class:     " << semesters[i].classes[j].name
                 << endl;
-        outFile << "          Credits: " << semesters[i].classes[j].credits
+        outFile << "          Credits:   " << semesters[i].classes[j].credits
                 << endl;
-        outFile << "          Grade:   " << semesters[i].classes[j].grade
+        outFile << "          Grade:     " << semesters[i].classes[j].grade
                 << endl;
+        if (semesters[i].classes[j].major) {
+          outFile << "          Major Req: true" << endl;
+        } else {
+          outFile << "          Major Req: false" << endl;
+        }
         outFile << "        <------------------------->" << endl;
       }
       outFile << "------------------------------------------------" << endl;
@@ -164,7 +167,7 @@ void College::readFile() {
     getline(inFile, inputLine);
     while (true) {
       getline(inFile, inputLine);
-      if(inputLine == "") {
+      if (inputLine == "") {
         break;
       }
       Semester newSemester;
@@ -194,10 +197,19 @@ void College::readFile() {
         startPos = inputLine.find(": ") + 2;
         newClass.grade = stod(inputLine.substr(startPos));
         newSemester.classes.push_back(newClass);
+        getline(inFile, inputLine);
+        startPos = inputLine.find(": ") + 2;
+        if (inputLine.substr(startPos) == "true") {
+          newClass.major = true;
+        } else {
+          newClass.major = false;
+        }
+        newSemester.classes.push_back(newClass);
       }
       semesters.push_back(newSemester);
     }
     break;
+    cout << "\nFile has been successfully read in." << endl;
   }
 }
 void College::addClass() {
@@ -244,16 +256,43 @@ void College::addClass() {
   }
   int creditHours = 0;
   double grade = 0;
-  cout << "How many credit hours is the class worth?" << endl;
-  cin >> creditHours;
-  cout << endl << "What is your current grade in the class?(Ex. 94.35)" << endl;
-  cin >> grade;
+  char major = 'n';
+  while (true) {
+    cout << "How many credit hours is the class worth?" << endl;
+    if (cin >> creditHours && creditHours < 6 && creditHours > 0) {
+    } else {
+      cin.clear();   // Clear any error flags
+      cin.ignore();  // Ignore leftover input
+      continue;
+    }
+
+    cout << endl
+         << "What is your current grade in the class?(Ex. 94.35)" << endl;
+    if (cin >> grade && grade > 0) {
+    } else {
+      cin.clear();   // Clear any error flags
+      cin.ignore();  // Ignore leftover input
+      continue;
+    }
+    cout << endl << "Is this class required for your major?(y/n)" << endl;
+    if (cin >> major && (major == 'y' || major == 'n')) {
+      break;
+    }
+
+    cin.clear();   // Clear any error flags
+    cin.ignore();  // Ignore leftover input
+  }
   MyClass newClass;
   newClass.name = response;
   newClass.grade = grade;
   newClass.credits = creditHours;
+  if (major == 'y') {
+    newClass.major = true;
+  }
 
   semesters[resp].classes.push_back(newClass);
+  semesters[resp].semCredits += creditHours;
+  cout << "\nClass successfully added." << endl;
 }
 
 void College::printSem() {
@@ -282,12 +321,9 @@ void College::printSem() {
 
   cout << endl << "        <------------------------->" << endl;
   for (size_t j = 0; j < semesters[resp].classes.size(); j++) {
-    cout << "        Name:    " << semesters[resp].classes[j].name
-         << endl;
-    cout << "        Credits: " << semesters[resp].classes[j].credits
-         << endl;
-    cout << "        Grade:   " << semesters[resp].classes[j].grade
-         << endl;
+    cout << "        Name:    " << semesters[resp].classes[j].name << endl;
+    cout << "        Credits: " << semesters[resp].classes[j].credits << endl;
+    cout << "        Grade:   " << semesters[resp].classes[j].grade << endl;
     cout << "        <------------------------->" << endl;
   }
 
@@ -442,6 +478,7 @@ void College::deleteClass() {
           << "Invalid input. Please enter a valid number or '-q' to go back.\n";
     }
   }
+  cout << "\nClass successfully deleted." << endl;
 }
 
 void College::deleteSem() {
@@ -488,4 +525,5 @@ void College::deleteSem() {
   } else {
     cout << "Invalid input. Please enter a valid number or '-q' to go back.\n";
   }
+  cout << endl << "Semester successfully deleted." << endl;
 }

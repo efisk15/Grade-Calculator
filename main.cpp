@@ -48,7 +48,7 @@ int main() {
       cout << "Print GPA:       -gpa" << endl;
       cout << "Change class:    -cc" << endl;
       cout << "Print semesters: -ps" << endl;
-      cout << "" << endl;
+      cout << "Save to file:    -stf" << endl;
       cout << "Print commands:  -cds" << endl;
       cout << "Quit:            -q" << endl;
     } else {
