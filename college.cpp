@@ -100,7 +100,7 @@ bool College::createFile() {
   while (1) {
     string fileName = "";
     cout << "What file would you like to save your GPA information to?" << endl;
-    cout << "Please enter the name a text file (Ex. gpa.txt)";
+    cout << "Please enter the name a text file (Ex. gpa.txt)\n";
     cin >> fileName;
     ofstream outFile(fileName.c_str());
     if (outFile.fail()) {
@@ -108,17 +108,21 @@ bool College::createFile() {
       continue;
     }
     outFile << "This is your GPA calculator file." << endl << endl;
-    outFile << "Total GPA: " << endl;
+    outFile << "Total GPA: " << totalGPA << endl;
     outFile << "Total Credits: " << totalCredits << endl << endl;
     outFile << "------------------------------------------------" << endl;
     for (size_t i = 0; i < semesters.size(); i++) {
       outFile << semesters[i].semName << endl;
-      outFile << "Credits: " << semesters[i].semCredits << endl << endl;
+      outFile << "Credits: " << semesters[i].semCredits << endl;
+      outFile << "Semester GPA: " << semesters[i].semGPA << endl << endl;
       outFile << "        <------------------------->" << endl;
       for (size_t j = 0; j < semesters[i].classes.size(); j++) {
-        outFile << semesters[i].classes[j].name << endl;
-        outFile << semesters[i].classes[j].credits << endl;
-        outFile << semesters[i].classes[j].grade << endl;
+        outFile << "          Class:   " << semesters[i].classes[j].name
+                << endl;
+        outFile << "          Credits: " << semesters[i].classes[j].credits
+                << endl;
+        outFile << "          Grade:   " << semesters[i].classes[j].grade
+                << endl;
         outFile << "        <------------------------->" << endl;
       }
       outFile << "------------------------------------------------" << endl;
@@ -127,6 +131,73 @@ bool College::createFile() {
     break;
   }
   return true;
+}
+void College::readFile() {
+  while (1) {
+    string fileName = "";
+    cout << "What file would you like to pull your GPA information from?"
+         << endl;
+    cout << "Please enter the name a text file (Ex. gpa.txt)\n";
+    cin >> fileName;
+    if (fileName == "-q") {
+      return;
+    }
+    ifstream inFile(fileName.c_str());
+    if (inFile.fail()) {
+      inFile.clear();
+      cout << "That file does not exist. Please try again or enter -q to go "
+              "back."
+           << endl;
+      continue;
+    }
+    string inputLine;
+    getline(inFile, inputLine);
+    getline(inFile, inputLine);
+    getline(inFile, inputLine);
+    size_t startPos = inputLine.find(": ") + 2;
+    totalGPA = stod(inputLine.substr(startPos));
+    getline(inFile, inputLine);
+    startPos = inputLine.find(": ") + 2;
+    totalCredits = stoi(inputLine.substr(startPos));
+    getline(inFile, inputLine);
+    getline(inFile, inputLine);
+    while (true) {
+      getline(inFile, inputLine);
+      if(inputLine == "") {
+        break;
+      }
+      Semester newSemester;
+      newSemester.semName = inputLine;
+      getline(inFile, inputLine);
+      startPos = inputLine.find(": ") + 2;
+      newSemester.semCredits = stoi(inputLine.substr(startPos));
+      getline(inFile, inputLine);
+      startPos = inputLine.find(": ") + 2;
+      newSemester.semGPA = stoi(inputLine.substr(startPos));
+      getline(inFile, inputLine);
+      while (true) {
+        MyClass newClass;
+        getline(inFile, inputLine);
+        getline(inFile, inputLine);
+        if (inputLine == "------------------------------------------------") {
+          break;
+        }
+        startPos = inputLine.find(": ") + 2;
+        string name = inputLine.substr(startPos + 2);
+        newClass.name = name;
+
+        getline(inFile, inputLine);
+        startPos = inputLine.find(": ") + 2;
+        newClass.credits = stoi(inputLine.substr(startPos));
+        getline(inFile, inputLine);
+        startPos = inputLine.find(": ") + 2;
+        newClass.grade = stod(inputLine.substr(startPos));
+        newSemester.classes.push_back(newClass);
+      }
+      semesters.push_back(newSemester);
+    }
+    break;
+  }
 }
 void College::addClass() {
   cin.clear();   // Clear any error flags
@@ -202,24 +273,24 @@ void College::printSem() {
     }
   }
   resp--;
-  cout << endl << "--------------------------" << endl;
+  cout << endl << "---------------------------------->" << endl;
 
-  cout << endl << semesters[resp].semName << endl << endl;
-  cout << "Semester Credit Hours: " << semesters[resp].semCredits << endl;
+  cout << semesters[resp].semName << endl;
+  cout << "Credits: " << semesters[resp].semCredits << endl;
   cout << "Total GPA: " << semesters[resp].semGPA << endl;
 
   cout << endl << "        <------------------------->" << endl;
   for (size_t j = 0; j < semesters[resp].classes.size(); j++) {
-    cout << "        Name:          " << semesters[resp].classes[j].name
+    cout << "        Name:    " << semesters[resp].classes[j].name
          << endl;
-    cout << "        Credit Hours:  " << semesters[resp].classes[j].credits
+    cout << "        Credits: " << semesters[resp].classes[j].credits
          << endl;
-    cout << "        Current Grade: " << semesters[resp].classes[j].grade
+    cout << "        Grade:   " << semesters[resp].classes[j].grade
          << endl;
     cout << "        <------------------------->" << endl;
   }
 
-  cout << endl << "--------------------------" << endl;
+  cout << endl << "---------------------------------->" << endl;
   return;
 }
 void College::changeClass() {
