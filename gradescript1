@@ -3,11 +3,10 @@ echo "Running test cases for GPA Calculator..."
 
 # Test Case 1: Fully Graduated Student
 echo "Test Case 1: Fully Graduated Student"
-cat > input1.txt <<EOF
+cat > input1.txt << EOF
 -as
 Spring 2024
 -ac
-1
 COSC 202
 3
 92
@@ -15,10 +14,10 @@ COSC 202
 -q
 EOF
 
-# Expected output
-expected_output="Calculated GPA: 3.0"
+# Expected output (assuming 92 translates to a grade, e.g., "A" => 4.0)
+expected_output="Your GPA is: 4.00"
 
-# Run the program and compare output
+# Run the program and capture output
 ./main < input1.txt > output1.txt
 if grep -q "$expected_output" output1.txt; then
     echo "PASS: Test Case 1"

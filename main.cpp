@@ -29,6 +29,7 @@ int main() {
       MyGPA->deleteSem();
     } else if (input == "-gpa") {
       // Print GPA
+      cout << "Your GPA is: " << MyGPA->getSemGPA() << endl;
     } else if (input == "-ps") {
       MyGPA->printSem();
 

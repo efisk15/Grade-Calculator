@@ -1,5 +1,4 @@
 #include "college.h"
-
 #include <stdio.h>
 
 #include <algorithm>  // for std::all_of
@@ -7,6 +6,8 @@
 #include <iostream>
 #include <map>
 #include <sstream>
+#include <cstdlib>
+#include <string>
 College::College() {}
 College::College(const College &SemesterToCopy) {}
 College::~College() {}
@@ -43,13 +44,16 @@ int College::calculateSemGrade(Semester sem) {
   // the class is worth
   for (size_t i = 0; i < sem.classes.size(); i++) {
     // calculate the grade points
-    SemGPA += sem.classes[i].grade * sem.classes[i].credits;
+    const string& grade = sem.classes[i].grade;
+    const double credits = sem.classes[i].credits;
+    SemGPA += gradepoints[grade] * credits;
+
   }
   if (sem.semCredits == 0) {
     return 0;
-  } else {
-    return SemGPA / sem.semCredits;
   }
+      return SemGPA / sem.semCredits;
+
 }
 double College::getSemGPA() {
   double semGPA = 0.0;
@@ -255,7 +259,7 @@ void College::addClass() {
     return;
   }
   int creditHours = 0;
-  double grade = 0;
+  string grade = "";
   char major = 'n';
   while (true) {
     cout << "How many credit hours is the class worth?" << endl;
@@ -267,8 +271,8 @@ void College::addClass() {
     }
 
     cout << endl
-         << "What is your current grade in the class?(Ex. 94.35)" << endl;
-    if (cin >> grade && grade > 0) {
+         << "What is your current grade in the class?(Ex. A-)" << endl;
+    if (cin >> grade) {
     } else {
       cin.clear();   // Clear any error flags
       cin.ignore();  // Ignore leftover input

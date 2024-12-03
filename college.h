@@ -6,7 +6,7 @@
 using namespace std;
 struct MyClass {
   string name;
-  double grade;
+  string grade;
   int credits;
   bool major;
 };
