@@ -1,6 +1,5 @@
 GPA Calculator
 
-Overview
 Welcome to our GPA calculator! Designed to assist students in tracking their academic performance. 
 Supports multiple semesters, classes, and varying credit hours, 
 
