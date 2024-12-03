@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-  cout << "Welcome to GPA Calculator!!" << endl;
+  cout << "\nWelcome to GPA Calculator!!\n" << endl;
   cout << "To get started, enter '-cds' to see the possible commands." << endl;
   cout << "If you have a file with previous GPA information, enter '-if' to "
           "get the GPA data from the file."
@@ -29,7 +29,7 @@ int main() {
       MyGPA->deleteSem();
     } else if (input == "-gpa") {
       // Print GPA
-      cout << "Your GPA is: " << MyGPA->getSemGPA() << endl;
+      MyGPA->printGPA();
     } else if (input == "-ps") {
       MyGPA->printSem();
 

@@ -1,15 +1,21 @@
 #include "college.h"
+
 #include <stdio.h>
 
 #include <algorithm>  // for std::all_of
+#include <cstdlib>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <sstream>
-#include <cstdlib>
 #include <string>
-College::College() {}
-College::College(const College &SemesterToCopy) {}
+College::College() {
+  totalCredits = 0;
+  totalGPA = 0;
+  semesters.resize(0);
+}
+College::College(const College& SemesterToCopy) {}
 College::~College() {}
 void College::print() {}
 // order of calulations
@@ -25,7 +31,7 @@ void College::print() {}
 //   // map<string, double> assignments = {};
 // }
 
-int College::calculateSemGrade(Semester sem) {
+double College::calculateSemGrade(Semester sem) {
   map<string, double> gradepoints;
   gradepoints["A"] = 4.00;
   gradepoints["A-"] = 3.67;
@@ -47,20 +53,18 @@ int College::calculateSemGrade(Semester sem) {
     const string& grade = sem.classes[i].grade;
     const double credits = sem.classes[i].credits;
     SemGPA += gradepoints[grade] * credits;
-
   }
   if (sem.semCredits == 0) {
     return 0;
   }
-      return SemGPA / sem.semCredits;
-
+  return SemGPA / sem.semCredits;
 }
-double College::getSemGPA() {
+void College::calculateTotalGPA() {
   double semGPA = 0.0;
   for (size_t i = 0; i < semesters.size(); i++) {
-    semGPA += calculateSemGrade(semesters[i]);
+    semGPA += semesters[i].semCredits * semesters[i].semGPA;
   }
-  return semGPA;
+  totalGPA = semGPA / totalCredits;
 }
 
 // void College::addSemester()
@@ -100,6 +104,7 @@ void College::addSemester() {
   cout << endl << "Successfully created semester." << endl;
 }
 bool College::createFile() {
+  calculateTotalGPA();
   while (1) {
     string fileName = "";
     cout << "What file would you like to save your GPA information to?" << endl;
@@ -111,7 +116,7 @@ bool College::createFile() {
       continue;
     }
     outFile << "This is your GPA calculator file." << endl << endl;
-    outFile << "Total GPA: " << totalGPA << endl;
+    outFile << "Total GPA: " << fixed << setprecision(2) << totalGPA << endl;
     outFile << "Total Credits: " << totalCredits << endl << endl;
     outFile << "------------------------------------------------" << endl;
     for (size_t i = 0; i < semesters.size(); i++) {
@@ -124,8 +129,8 @@ bool College::createFile() {
                 << endl;
         outFile << "          Credits:   " << semesters[i].classes[j].credits
                 << endl;
-        outFile << "          Grade:     " << semesters[i].classes[j].grade
-                << endl;
+        outFile << "          Grade:     " << fixed << setprecision(2)
+                << semesters[i].classes[j].grade << endl;
         if (semesters[i].classes[j].major) {
           outFile << "          Major Req: true" << endl;
         } else {
@@ -181,7 +186,7 @@ void College::readFile() {
       newSemester.semCredits = stoi(inputLine.substr(startPos));
       getline(inFile, inputLine);
       startPos = inputLine.find(": ") + 2;
-      newSemester.semGPA = stoi(inputLine.substr(startPos));
+      newSemester.semGPA = stod(inputLine.substr(startPos));
       getline(inFile, inputLine);
       while (true) {
         MyClass newClass;
@@ -191,7 +196,7 @@ void College::readFile() {
           break;
         }
         startPos = inputLine.find(": ") + 2;
-        string name = inputLine.substr(startPos + 2);
+        string name = inputLine.substr(startPos + 4);
         newClass.name = name;
 
         getline(inFile, inputLine);
@@ -199,8 +204,7 @@ void College::readFile() {
         newClass.credits = stoi(inputLine.substr(startPos));
         getline(inFile, inputLine);
         startPos = inputLine.find(": ") + 2;
-        newClass.grade = stod(inputLine.substr(startPos));
-        newSemester.classes.push_back(newClass);
+        newClass.grade = inputLine.substr(startPos + 4);
         getline(inFile, inputLine);
         startPos = inputLine.find(": ") + 2;
         if (inputLine.substr(startPos) == "true") {
@@ -213,90 +217,99 @@ void College::readFile() {
       semesters.push_back(newSemester);
     }
     break;
-    cout << "\nFile has been successfully read in." << endl;
   }
+  cout << "\nFile has been successfully read in." << endl;
 }
 void College::addClass() {
   cin.clear();   // Clear any error flags
   cin.ignore();  // Ignore leftover input
   string response;
   size_t resp;
-  while (true) {
-    cout << endl
-         << "What semester would you like to add your class to?(Enter the "
-            "number of the semester)"
-         << endl;
-    for (size_t i = 0; i < semesters.size(); i++) {
-      cout << i + 1 << ": " << semesters[i].semName << endl;
-    }
-    cout << endl;
-    if (cin >> resp) {
-      if (resp <= semesters.size() && resp > 0) {
-        break;
+  if (semesters.size() > 0) {
+    while (true) {
+      cout << endl
+           << "What semester would you like to add your class to?(Enter the "
+              "number of the semester)"
+           << endl;
+      for (size_t i = 0; i < semesters.size(); i++) {
+        cout << i + 1 << ": " << semesters[i].semName << endl;
       }
-    } else {
-      cin.clear();   // Clear any error flags
-      cin.ignore();  // Ignore leftover input
+      cout << endl;
+      if (cin >> resp) {
+        if (resp <= semesters.size() && resp > 0) {
+          break;
+        }
+      } else {
+        cin.clear();   // Clear any error flags
+        cin.ignore();  // Ignore leftover input
+      }
     }
-  }
-  cin.clear();   // Clear any error flags
-  cin.ignore();  // Ignore leftover input
-  resp--;
-  cout << endl
-       << "What is the name of the class that you would like to add?" << endl;
-  cout << "(Recommended Ex. COSC 202)" << endl;
-  if (semesters[resp].classes.size() > 0) {
-    cout << "Current classes added: " << endl;
-    for (size_t i = 0; i < semesters[resp].classes.size(); i++) {
-      cout << semesters[resp].classes[i].name << endl;
-    }
-    cout << endl;
-    cout << "If you already see your class listed, enter -q to go back."
-         << endl;
-  }
-  std::getline(cin, response);
-  if (response == "-q") {
-    return;
-  }
-  int creditHours = 0;
-  string grade = "";
-  char major = 'n';
-  while (true) {
-    cout << "How many credit hours is the class worth?" << endl;
-    if (cin >> creditHours && creditHours < 6 && creditHours > 0) {
-    } else {
-      cin.clear();   // Clear any error flags
-      cin.ignore();  // Ignore leftover input
-      continue;
-    }
-
-    cout << endl
-         << "What is your current grade in the class?(Ex. A-)" << endl;
-    if (cin >> grade) {
-    } else {
-      cin.clear();   // Clear any error flags
-      cin.ignore();  // Ignore leftover input
-      continue;
-    }
-    cout << endl << "Is this class required for your major?(y/n)" << endl;
-    if (cin >> major && (major == 'y' || major == 'n')) {
-      break;
-    }
-
     cin.clear();   // Clear any error flags
     cin.ignore();  // Ignore leftover input
-  }
-  MyClass newClass;
-  newClass.name = response;
-  newClass.grade = grade;
-  newClass.credits = creditHours;
-  if (major == 'y') {
-    newClass.major = true;
-  }
+    resp--;
+    cout << endl
+         << "What is the name of the class that you would like to add?" << endl;
+    cout << "(Recommended Ex. COSC 202)" << endl;
+    if (semesters[resp].classes.size() > 0) {
+      cout << "Current classes added: " << endl;
+      for (size_t i = 0; i < semesters[resp].classes.size(); i++) {
+        cout << semesters[resp].classes[i].name << endl;
+      }
+      cout << endl;
+      cout << "If you already see your class listed, enter -q to go back."
+           << endl;
+    }
+    std::getline(cin, response);
+    if (response == "-q") {
+      return;
+    }
+    int creditHours = 0;
+    string grade = "";
+    char major = 'n';
+    while (true) {
+      cout << "How many credit hours is the class worth?" << endl;
+      if (cin >> creditHours && creditHours < 6 && creditHours > 0) {
+      } else {
+        cin.clear();   // Clear any error flags
+        cin.ignore();  // Ignore leftover input
+        continue;
+      }
 
-  semesters[resp].classes.push_back(newClass);
-  semesters[resp].semCredits += creditHours;
-  cout << "\nClass successfully added." << endl;
+      cout << endl
+           << "What is your current grade in the class?(Ex. A-)" << endl;
+      if (cin >> grade) {
+      } else {
+        cin.clear();   // Clear any error flags
+        cin.ignore();  // Ignore leftover input
+        continue;
+      }
+      cout << endl << "Is this class required for your major?(y/n)" << endl;
+      if (cin >> major && (major == 'y' || major == 'n')) {
+        break;
+      }
+
+      cin.clear();   // Clear any error flags
+      cin.ignore();  // Ignore leftover input
+    }
+    MyClass newClass;
+    newClass.name = response;
+    newClass.grade = grade;
+    newClass.credits = creditHours;
+    if (major == 'y') {
+      newClass.major = true;
+    }
+
+    semesters[resp].classes.push_back(newClass);
+    semesters[resp].semCredits += creditHours;
+    semesters[resp].semGPA = calculateSemGrade(semesters[resp]);
+    totalCredits += creditHours;
+    calculateTotalGPA();
+    cout << "\nClass successfully added." << endl;
+  } else {
+    cout << "There are not any semesters created yet. Use the -as command to "
+            "add a semester before adding a class."
+         << endl;
+  }
 }
 
 void College::printSem() {
@@ -321,13 +334,15 @@ void College::printSem() {
 
   cout << semesters[resp].semName << endl;
   cout << "Credits: " << semesters[resp].semCredits << endl;
-  cout << "Total GPA: " << semesters[resp].semGPA << endl;
+  cout << "Total GPA: " << fixed << setprecision(2) << semesters[resp].semGPA
+       << endl;
 
   cout << endl << "        <------------------------->" << endl;
   for (size_t j = 0; j < semesters[resp].classes.size(); j++) {
     cout << "        Name:    " << semesters[resp].classes[j].name << endl;
     cout << "        Credits: " << semesters[resp].classes[j].credits << endl;
-    cout << "        Grade:   " << semesters[resp].classes[j].grade << endl;
+    cout << "        Grade:   " << fixed << setprecision(2)
+         << semesters[resp].classes[j].grade << endl;
     cout << "        <------------------------->" << endl;
   }
 
@@ -465,6 +480,8 @@ void College::deleteClass() {
         vector<MyClass> tempClasses;
         for (size_t j = 0; j < semesters[resp].classes.size(); j++) {
           if (j == num) {
+            totalCredits -= semesters[resp].classes[num].credits;
+            semesters[resp].semCredits -= semesters[resp].classes[num].credits;
             continue;
           }
           tempClasses.push_back(semesters[resp].classes[j]);
@@ -472,6 +489,8 @@ void College::deleteClass() {
         cout << "\nThe class " << semesters[resp].classes[num].name
              << " has successfully been deleted.\n";
         semesters[resp].classes = tempClasses;
+        calculateSemGrade(semesters[resp]);
+        calculateTotalGPA();
         return;
 
       } else {
@@ -482,6 +501,7 @@ void College::deleteClass() {
           << "Invalid input. Please enter a valid number or '-q' to go back.\n";
     }
   }
+  calculateTotalGPA();
   cout << "\nClass successfully deleted." << endl;
 }
 
@@ -514,6 +534,7 @@ void College::deleteSem() {
       vector<Semester> tempSem;
       for (size_t j = 0; j < semesters.size(); j++) {
         if (j == num) {
+          totalCredits -= semesters[num].semCredits;
           continue;
         }
         tempSem.push_back(semesters[j]);
@@ -521,6 +542,7 @@ void College::deleteSem() {
       cout << "\nThe semester " << semesters[num].semName
            << " has successfully been deleted.\n";
       semesters = tempSem;
+      calculateTotalGPA();
       return;
 
     } else {
@@ -530,4 +552,9 @@ void College::deleteSem() {
     cout << "Invalid input. Please enter a valid number or '-q' to go back.\n";
   }
   cout << endl << "Semester successfully deleted." << endl;
+}
+
+void College::printGPA() {
+  calculateTotalGPA();
+  cout << "Your total GPA is: " << totalGPA << endl;
 }
