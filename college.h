@@ -23,8 +23,8 @@ class College {
   College(const College&);
   ~College();
   void print();
-  int calculateSemGrade(Semester);
-  double getSemGPA();
+  double calculateSemGrade(Semester);
+  void calculateTotalGPA();
   int getTotalCredits();
   bool createFile();
   void addSemester();
@@ -34,6 +34,7 @@ class College {
   void deleteClass();
   void deleteSem();
   void readFile();
+  void printGPA();
  private:
   double totalGPA;
   int totalCredits;
