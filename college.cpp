@@ -64,7 +64,11 @@ void College::calculateTotalGPA() {
   for (size_t i = 0; i < semesters.size(); i++) {
     semGPA += semesters[i].semCredits * semesters[i].semGPA;
   }
-  totalGPA = semGPA / totalCredits;
+  if (totalCredits == 0) {
+    totalGPA = semGPA / 1;
+  } else {
+    totalGPA = semGPA / totalCredits;
+  }
 }
 
 // void College::addSemester()
@@ -131,11 +135,6 @@ bool College::createFile() {
                 << endl;
         outFile << "          Grade:     " << fixed << setprecision(2)
                 << semesters[i].classes[j].grade << endl;
-        if (semesters[i].classes[j].major) {
-          outFile << "          Major Req: true" << endl;
-        } else {
-          outFile << "          Major Req: false" << endl;
-        }
         outFile << "        <------------------------->" << endl;
       }
       outFile << "------------------------------------------------" << endl;
@@ -205,13 +204,6 @@ void College::readFile() {
         getline(inFile, inputLine);
         startPos = inputLine.find(": ") + 2;
         newClass.grade = inputLine.substr(startPos + 4);
-        getline(inFile, inputLine);
-        startPos = inputLine.find(": ") + 2;
-        if (inputLine.substr(startPos) == "true") {
-          newClass.major = true;
-        } else {
-          newClass.major = false;
-        }
         newSemester.classes.push_back(newClass);
       }
       semesters.push_back(newSemester);
@@ -265,7 +257,6 @@ void College::addClass() {
     }
     int creditHours = 0;
     string grade = "";
-    char major = 'n';
     while (true) {
       cout << "How many credit hours is the class worth?" << endl;
       if (cin >> creditHours && creditHours < 6 && creditHours > 0) {
@@ -278,13 +269,6 @@ void College::addClass() {
       cout << endl
            << "What is your current grade in the class?(Ex. A-)" << endl;
       if (cin >> grade) {
-      } else {
-        cin.clear();   // Clear any error flags
-        cin.ignore();  // Ignore leftover input
-        continue;
-      }
-      cout << endl << "Is this class required for your major?(y/n)" << endl;
-      if (cin >> major && (major == 'y' || major == 'n')) {
         break;
       }
 
@@ -295,9 +279,6 @@ void College::addClass() {
     newClass.name = response;
     newClass.grade = grade;
     newClass.credits = creditHours;
-    if (major == 'y') {
-      newClass.major = true;
-    }
 
     semesters[resp].classes.push_back(newClass);
     semesters[resp].semCredits += creditHours;
@@ -482,6 +463,9 @@ void College::deleteClass() {
           if (j == num) {
             totalCredits -= semesters[resp].classes[num].credits;
             semesters[resp].semCredits -= semesters[resp].classes[num].credits;
+            if (semesters[resp].semCredits == 0) {
+              semesters[resp].semGPA = 0;
+            }
             continue;
           }
           tempClasses.push_back(semesters[resp].classes[j]);
