@@ -19,13 +19,13 @@ Features
 - Command Prompt Assistance: View available commands for easy navigation.
 
 Commands
--cds: Print all available commands.
--as: Add a new semester.
--ac: Add a new class to a specified semester.
--ds: Delete an existing semester.
--dc: Delete a specific class.
--gpa: Print the current GPA.
--cc: Modify an existing class.
--ps: Print all semesters.
--stf: Save data to a file.
--q: Quit the application.
+- -cds: Print all available commands.
+- -as: Add a new semester.
+- -ac: Add a new class to a specified semester.
+- -ds: Delete an existing semester.
+- -dc: Delete a specific class.
+- -gpa: Print the current GPA.
+- -cc: Modify an existing class.
+- -ps: Print all semesters.
+- -stf: Save data to a file.
+- -q: Quit the application.
