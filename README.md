@@ -1,8 +1,10 @@
 GPA Calculator
 
 Overview
+Welcome to our GPA calculator! Designed to assist students in tracking their academic performance. 
+Supports multiple semesters, classes, and varying credit hours, 
 
-The GPA Calculator is a command-line application designed to assist students in tracking their academic performance. With support for multiple semesters, classes, and detailed GPA calculations, the program allows users to:
+the program allows users to:
 
 - Add and manage semesters.
 - Add, edit, and delete classes.
