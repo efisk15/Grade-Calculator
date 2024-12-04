@@ -1,6 +1,7 @@
 Final Lab Progress Report
+Team: Judah Benjamin, Eli Fisk
 
-Time Tracking - (Judah)
+Juda's Time Tracking:
 30 min: Planning.
 1 hour: Coding.
 1 hour: Writing our ordering of calculations and implementing.
@@ -11,76 +12,92 @@ Time Tracking - (Judah)
 15 min: Writing grade scripts based on the tests described below.
 1 hour: Writing total GPA calculation based on credits taken, changing input grades from integers to strings, and outputting them as doubles.
 
+Eli's Time tracking:
+30 min: Brain Storming session
+30 min: Wrote the college.h file
+40 min: Wrote commands in main.cpp
+1 hour: Research how to create and write to a file in c++ and wrote createFile() function.
+50 min: Wrote the readFile() function to read from a valid file.
+35 min: Wrote the addClass() function.
+30 min: Wrote the addSemester() function.
+30 min: Wrote the deleteFile() function.
+40 min: Wrote the deleteSemester() function.
+30 min: Wrote the printSem() function.
+45 min: Wrote the changeClass() function.
+1 hour: Wrote error checking for all the listed functions.
 
 Pros and Cons of Using Classes (OOP) for This Problem
-
-Pros
-
+Pros:
 Separation of concerns: Classes enable us to encapsulate methods for GPA calculation (semester and cumulative) into distinct components.
-
 Code organization: Header files are more structured, improving visual clarity and making the code easier to navigate and debug.
 
-Cons
-
+Cons:
 Input complexity: Converting inputs from numbers to strings and then outputting numerical values for grades was more challenging.
-
 Flexibility: Accounting for individual grading structures per class added complexity, requiring additional logic.
-
 Useful Data Structure Explanation
 
-Map (std::map)
 
+Map (std::map)
 Purpose: Used to calculate the GPA by associating letter grades with their respective credit values.
 
 Advantages:
-
 Efficient traversal and updates compared to other structures like vectors.
-
 Simplifies calculations by allowing direct lookups for grade-to-credit associations.
-
 Reduces the need for nested loops, streamlining the GPA computation process.
-
 Implementation: Final GPA is calculated by dividing the total grade points by the total credits taken.
 
-Test Cases
+
+Test Cases:
 
 Test Case 1: Fully Graduated Student
-
 Scenario: Graduated student 
-
 Input: Varying grades across multiple courses with differing credit levels.
-
 Expected Output: Accurate GPA reflecting performance in both the major and minor.
 
 
 Test Case 2: Sophomore Student 
-
 Scenario: A sophomore 
-
 Input: Similar grades across courses with varying credit levels 
-
 Post-Project Comments
 
-Pros
 
+What went well:
+Juda: 
 Team collaboration: We took the time to understand project requirements thoroughly, 
 leading to efficient structuring and reduced back-and-forth.
-
 Task division: Responsibilities were divided based on individual strengths, optimizing our workflow.
 
-Cons
+Eli: I really enjoyed the oppertunity to work on a project that was of our choosing as it allowed us to
+learn skills that we may have wanted to learn while also working on a college task. It was also nice to
+be able to work on a team to be able to get real world experience with using github and coding standards.
+I think we worked well as a team and we both held up our sides of the project.
 
+What can be changed:
+Juda:
 Contribution disparity: I felt I contributed fewer lines of code, partly because Eli is more experienced. 
 However, I actively participated in discussions and tasks, ensuring a collaborative effort.
 
+Eli: When working with teams, I sometimes struggle a lot with remembering to communicate. Luckily this divided
+not hinder our progress on this project to much because by luck we happened to work on it at different times.
+For future projects, I need to do a better job at updating others on what I am doing so everyone can stay more
+informed.
+
 Personal Reflection
-
+Juda:
 What I learned:
-
 Writing to and reading from files, primarily from online resources and Eli’s guidance.
 Understanding arithmetic operations and how they fit into the broader project.
 
 Self-assessment:
-
 Despite Eli’s greater experience, I remained engaged and proactive, learning from his expertise and contributing meaningfully.
 I believe I deserve full credit for staying focused, overcoming challenges, and contributing to the team’s success.
+
+Eli:
+What I learned:
+I learned how to read from and write to files from within a c++ program. I learned how to use github more effectively
+to work better as a team. I also learned the writting error checking takes a long time.
+
+Self-assessment: 
+I think that I did an overall good job on the coding portion of this project. There is a lot more error checking that I could
+add if I had more time and a lot more cool ideas for this program that I wish I could have added but overall I like what Juda and
+I accomplished. Again, I do think I could do better at communicating though, so that will be something I work on in the future. 
