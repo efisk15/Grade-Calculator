@@ -46,6 +46,15 @@ Simplifies calculations by allowing direct lookups for grade-to-credit associati
 Reduces the need for nested loops, streamlining the GPA computation process.
 Implementation: Final GPA is calculated by dividing the total grade points by the total credits taken.
 
+Vector (std::vector)
+Purpose: To hold all of the semesters and classes.
+
+Advantages:
+The main reason we chose to use a vector was because the most important thing we needed for the project was
+to be able to index into the vector of classes and semesters to be able to calculate data from the classes's
+information and to be able to create a better user experience by allowing user to only have to enter a numbers
+to access a certain semester or class.
+
 
 Test Cases:
 
@@ -95,9 +104,19 @@ I believe I deserve full credit for staying focused, overcoming challenges, and 
 Eli:
 What I learned:
 I learned how to read from and write to files from within a c++ program. I learned how to use github more effectively
-to work better as a team. I also learned the writting error checking takes a long time.
+to work better as a team. I also learned that writing error checking takes a long time.
 
 Self-assessment: 
 I think that I did an overall good job on the coding portion of this project. There is a lot more error checking that I could
 add if I had more time and a lot more cool ideas for this program that I wish I could have added but overall I like what Juda and
-I accomplished. Again, I do think I could do better at communicating though, so that will be something I work on in the future. 
+I accomplished. Again, I do think I could do better at communicating though, so that will be something I work on in the future.
+
+
+Why we should get full discretionary points:
+
+We believe we should get full discretionary points for this project because we are using an object that has a vector of
+custom structs that has another vector of custom structs so we are using a decently complex data structure. Our program
+also saves data to a text file so that data will persist which adds more complexity to the overall program. In addition to
+these 2 reasons, this program is a lot like the hash tables lab in that it has a lot of commands which means there is a ton
+of error checking that had to be implemented and a lot of debugging that had to be completed for the project to work smoothly
+and be user friendly.
