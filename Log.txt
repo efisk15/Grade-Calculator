@@ -1,0 +1,94 @@
+Final Lab Progress Report
+
+Time Tracking
+30 min: Planning.
+
+1 hour: Coding.
+
+1 hour: Writing our ordering of calculations and implementing.
+
+30 min: Writing out code for the map of grades.
+
+15 min: Discussing how to read the information in (via file or terminal).
+
+45 min: Adjusting code for reading in via terminal (current plan). May change later.
+
+45 min: Writing semester GPA calculation and restructuring Makefile.
+
+15 min: Writing grade scripts based on the tests described below.
+
+1 hour: Writing total GPA calculation based on credits taken, changing input grades from integers to strings, and outputting them as doubles.
+
+
+Pros and Cons of Using Classes (OOP) for This Problem
+
+Pros
+
+Separation of concerns: Classes enable us to encapsulate methods for GPA calculation (semester and cumulative) into distinct components.
+
+Code organization: Header files are more structured, improving visual clarity and making the code easier to navigate and debug.
+
+Cons
+
+Input complexity: Converting inputs from numbers to strings and then outputting numerical values for grades was more challenging.
+
+Flexibility: Accounting for individual grading structures per class added complexity, requiring additional logic.
+
+Useful Data Structure Explanation
+
+Map (std::map)
+
+Purpose: Used to calculate the GPA by associating letter grades with their respective credit values.
+
+Advantages:
+
+Efficient traversal and updates compared to other structures like vectors.
+
+Simplifies calculations by allowing direct lookups for grade-to-credit associations.
+
+Reduces the need for nested loops, streamlining the GPA computation process.
+
+Implementation: Final GPA is calculated by dividing the total grade points by the total credits taken.
+
+Test Cases
+
+Test Case 1: Fully Graduated Student
+
+Scenario: Graduated student 
+
+Input: Varying grades across multiple courses with differing credit levels.
+
+Expected Output: Accurate GPA reflecting performance in both the major and minor.
+
+
+Test Case 2: Sophomore Student 
+
+Scenario: A sophomore 
+
+Input: Similar grades across courses with varying credit levels 
+
+Post-Project Comments
+
+Pros
+
+Team collaboration: We took the time to understand project requirements thoroughly, 
+leading to efficient structuring and reduced back-and-forth.
+
+Task division: Responsibilities were divided based on individual strengths, optimizing our workflow.
+
+Cons
+
+Contribution disparity: I felt I contributed fewer lines of code, partly because Eli is more experienced. 
+However, I actively participated in discussions and tasks, ensuring a collaborative effort.
+
+Personal Reflection
+
+What I learned:
+
+Writing to and reading from files, primarily from online resources and Eli’s guidance.
+Understanding arithmetic operations and how they fit into the broader project.
+
+Self-assessment:
+
+Despite Eli’s greater experience, I remained engaged and proactive, learning from his expertise and contributing meaningfully.
+I believe I deserve full credit for staying focused, overcoming challenges, and contributing to the team’s success.
