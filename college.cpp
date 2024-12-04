@@ -8,6 +8,13 @@ semester and class data, including GPA calculation, file handling,
 and user interaction. This file includes methods to add, modify,
 delete, and print semesters and classes, as well as read/write data
 to files and calculate GPA metrics.
+
+Citations:
+I used geekforgeeks to find the all_of function.
+https://www.geeksforgeeks.org/stdall_of-in-cpp/
+
+I used geekforgeeks to learn how to us ofstream.
+https://www.geeksforgeeks.org/file-handling-c-classes/
 */
 
 #include "college.h"
