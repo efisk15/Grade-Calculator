@@ -1,32 +1,24 @@
-GPA Calculator
+Welcome to the GPA calculator! This tool helps students manage their semesters and calculate their cumulative GPA. It supports multiple semesters, classes, and varying credit hours.
 
-Welcome to our GPA calculator! Designed to assist students in tracking their academic performance. 
-Supports multiple semesters, classes, and varying credit hours, 
+How to Run
+Compile the code using your preferred C++ compiler.
+Run the program from the terminal.
 
-the program allows users to:
-
-- Add and manage semesters.
-- Add, edit, and delete classes.
-- Calculate cumulative GPA across all semesters.
-- Save and retrieve GPA data from files.
-- This project provides a simple, interactive interface for entering grades and credits while also supporting test automation for verification.
-
-Features
-
-- Semester Management: Create, delete, and list semesters.
-- Class Management: Add, modify, and remove classes with associated credit hours and grades.
-- GPA Calculation: Compute GPA based on credit hours and grades.
-- File Operations: Save and load GPA data for persistence.
-- Command Prompt Assistance: View available commands for easy navigation.
+How to Use
+Add and manage semesters using commands like -as to add or -ds to delete.
+Add and modify classes with associated grades and credits using commands like -ac to add or -cc to change class details.
+Calculate cumulative GPA using the -gpa command.
+Save and load GPA data with the -stf command to persist data across sessions.
 
 Commands
-- -cds: Print all available commands.
-- -as: Add a new semester.
-- -ac: Add a new class to a specified semester.
-- -ds: Delete an existing semester.
-- -dc: Delete a specific class.
-- -gpa: Print the current GPA.
-- -cc: Modify an existing class.
-- -ps: Print all semesters.
-- -stf: Save data to a file.
-- -q: Quit the application.
+
+-cds: Print all available commands.
+-as: Add a new semester.
+-ac: Add a class to a semester.
+-ds: Delete a semester.
+-dc: Delete a class.
+-gpa: Display current GPA.
+-cc: Modify a class.
+-ps: Print all semesters.
+-stf: Save data to a file.
+-q: Quit the application.**
