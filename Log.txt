@@ -1,22 +1,14 @@
 Final Lab Progress Report
 
-Time Tracking
+Time Tracking - (Judah)
 30 min: Planning.
-
 1 hour: Coding.
-
 1 hour: Writing our ordering of calculations and implementing.
-
 30 min: Writing out code for the map of grades.
-
 15 min: Discussing how to read the information in (via file or terminal).
-
 45 min: Adjusting code for reading in via terminal (current plan). May change later.
-
 45 min: Writing semester GPA calculation and restructuring Makefile.
-
 15 min: Writing grade scripts based on the tests described below.
-
 1 hour: Writing total GPA calculation based on credits taken, changing input grades from integers to strings, and outputting them as doubles.
 
 
