@@ -5,6 +5,7 @@ Compile the code using your preferred C++ compiler.
 Run the program from the terminal.
 
 How to Use
+Run 'make' to create the executable then enter './main' to run the program.
 Add and manage semesters using commands like -as to add or -ds to delete.
 Add and modify classes with associated grades and credits using commands like -ac to add or -cc to change class details.
 Calculate cumulative GPA using the -gpa command.
