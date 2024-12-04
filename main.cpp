@@ -1,3 +1,15 @@
+/*
+Capstone Project: Grade Calculator
+Names: Eli Fisk, Judah Benjamin.
+
+File: main.cpp
+Description:
+This program provides a command-line interface for managing and calculating
+GPA using the `College` class. Users can add, modify, and delete classes
+and semesters, calculate GPA, and save or load data from a file. The program
+runs in a loop, responding to user commands until they choose to exit.
+*/
+
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -19,7 +31,6 @@ int main() {
     if (input == "-ac") {
       MyGPA->addClass();
     } else if (input == "-if") {
-      // Get past input
       MyGPA->readFile();
     } else if (input == "-as") {
       MyGPA->addSemester();

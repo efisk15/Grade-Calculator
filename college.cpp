@@ -1,8 +1,20 @@
+/*
+Capstone Project: Grade Calculator
+Names: Eli Fisk, Judah Benjamin.
+
+File: college.cpp
+Description: Implementation of the College class for managing
+semester and class data, including GPA calculation, file handling,
+and user interaction. This file includes methods to add, modify,
+delete, and print semesters and classes, as well as read/write data
+to files and calculate GPA metrics.
+*/
+
 #include "college.h"
 
 #include <stdio.h>
 
-#include <algorithm>  // for std::all_of
+#include <algorithm>
 #include <cstdlib>
 #include <fstream>
 #include <iomanip>
@@ -15,21 +27,22 @@ College::College() {
   totalGPA = 0;
   semesters.resize(0);
 }
-College::College(const College& SemesterToCopy) {}
-College::~College() {}
-void College::print() {}
-// order of calulations
-// gpa - smester - classes value - credits - glass gpa - grading wieghts -
-// assignment grades
+College::College(const College& SemesterToCopy)
+    : totalGPA(SemesterToCopy.totalGPA),
+      totalCredits(SemesterToCopy.totalCredits),
+      semesters(SemesterToCopy.semesters) {}
 
-// int AssignmentGroup() {
-//   string name;
-//   double weight;
-//   double grade;
-//   return 0;
-//   // possibly read in assignments from file
-//   // map<string, double> assignments = {};
-// }
+College::~College() {}
+
+bool College::validGrade(string grade) {
+  if (grade == "A" || grade == "A-" || grade == "B+" || grade == "B-" ||
+      grade == "B" || grade == "C+" || grade == "C" || grade == "C-" ||
+      grade == "D+" || grade == "D" || grade == "D-" || grade == "F") {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 double College::calculateSemGrade(Semester sem) {
   map<string, double> gradepoints;
@@ -61,6 +74,9 @@ double College::calculateSemGrade(Semester sem) {
 }
 void College::calculateTotalGPA() {
   double semGPA = 0.0;
+
+  // Get the weighted grade for each semester to then divide it by the total
+  // credit hours.
   for (size_t i = 0; i < semesters.size(); i++) {
     semGPA += semesters[i].semCredits * semesters[i].semGPA;
   }
@@ -71,18 +87,12 @@ void College::calculateTotalGPA() {
   }
 }
 
-// void College::addSemester()
-// {
-//   Semester sem;
-//   semesters.push_back(sem);
-//   totalCredits += sem.semCredits;
-// }
-
-int College::getTotalCredits() { return totalCredits; }
 void College::addSemester() {
-  cin.clear();   // Clear any error flags
-  cin.ignore();  // Ignore leftover input
+  cin.clear();
+  cin.ignore();
   string response;
+  // Prompt the user for the name of a semester. If there are already semesters,
+  // list them so that the user does not accidentally duplicate semesters.
   cout << endl
        << "What is the name of the semester that you would like to add?"
        << endl;
@@ -100,6 +110,7 @@ void College::addSemester() {
   if (response == "-q") {
     return;
   }
+  // Add the new semester.
   Semester newSem;
   newSem.semName = response;
   newSem.semCredits = 0;
@@ -107,18 +118,25 @@ void College::addSemester() {
   semesters.push_back(newSem);
   cout << endl << "Successfully created semester." << endl;
 }
-bool College::createFile() {
+void College::createFile() {
   calculateTotalGPA();
   while (1) {
+    // Prompt the user for a file name. If the file name is not good, re-prompt
+    // for a new name until they enter a valid one or they hit -q.
     string fileName = "";
     cout << "What file would you like to save your GPA information to?" << endl;
     cout << "Please enter the name a text file (Ex. gpa.txt)\n";
     cin >> fileName;
+    if (fileName == "-q") {
+      return;
+    }
     ofstream outFile(fileName.c_str());
     if (outFile.fail()) {
       outFile.clear();
       continue;
     }
+
+    // Print to the file with a specific format.
     outFile << "This is your GPA calculator file." << endl << endl;
     outFile << "Total GPA: " << fixed << setprecision(2) << totalGPA << endl;
     outFile << "Total Credits: " << totalCredits << endl << endl;
@@ -142,10 +160,12 @@ bool College::createFile() {
     outFile.close();
     break;
   }
-  return true;
+  return;
 }
 void College::readFile() {
   while (1) {
+    // Prompt the user for a file name to read from, if it is not a valid file,
+    // re-prompt until it is valid.
     string fileName = "";
     cout << "What file would you like to pull your GPA information from?"
          << endl;
@@ -164,6 +184,15 @@ void College::readFile() {
     }
     string inputLine;
     getline(inFile, inputLine);
+    if (inputLine != "This is your GPA calculator file.") {
+      inFile.close();
+      cout << "That is an invalid file. Please try again with a file specific "
+              "for the use of this program or enter -q to return."
+           << endl;
+      continue;
+    }
+    // File is now valid so go line by line getting data for semesters and
+    // classes.
     getline(inFile, inputLine);
     getline(inFile, inputLine);
     size_t startPos = inputLine.find(": ") + 2;
@@ -208,15 +237,20 @@ void College::readFile() {
       }
       semesters.push_back(newSemester);
     }
+    inFile.close();
     break;
   }
   cout << "\nFile has been successfully read in." << endl;
 }
 void College::addClass() {
-  cin.clear();   // Clear any error flags
-  cin.ignore();  // Ignore leftover input
+  cin.clear();
+  cin.ignore();
   string response;
   size_t resp;
+
+  // Prompt the user to enter the number corresponding to the semester they
+  // would like to add their class to. If there are no semesters, alert them
+  // that they will need to create a semester before adding a class.
   if (semesters.size() > 0) {
     while (true) {
       cout << endl
@@ -232,12 +266,12 @@ void College::addClass() {
           break;
         }
       } else {
-        cin.clear();   // Clear any error flags
-        cin.ignore();  // Ignore leftover input
+        cin.clear();
+        cin.ignore();
       }
     }
-    cin.clear();   // Clear any error flags
-    cin.ignore();  // Ignore leftover input
+    cin.clear();
+    cin.ignore();
     resp--;
     cout << endl
          << "What is the name of the class that you would like to add?" << endl;
@@ -255,20 +289,22 @@ void College::addClass() {
     if (response == "-q") {
       return;
     }
+
+    // Get the other necessary information for the class.
     int creditHours = 0;
     string grade = "";
     while (true) {
       cout << "How many credit hours is the class worth?" << endl;
       if (cin >> creditHours && creditHours < 6 && creditHours > 0) {
       } else {
-        cin.clear();   // Clear any error flags
-        cin.ignore();  // Ignore leftover input
+        cin.clear();
+        cin.ignore();
         continue;
       }
 
       cout << endl
            << "What is your current grade in the class?(Ex. A-)" << endl;
-      if (cin >> grade) {
+      if (cin >> grade && validGrade(grade)) {
         break;
       }
 
@@ -293,6 +329,7 @@ void College::addClass() {
   }
 }
 
+// Print a selected semester to the terminal with formatting.
 void College::printSem() {
   size_t resp;
   while (true) {
@@ -306,8 +343,8 @@ void College::printSem() {
         break;
       }
     } else {
-      cin.clear();   // Clear any error flags
-      cin.ignore();  // Ignore leftover input
+      cin.clear();
+      cin.ignore();
     }
   }
   resp--;
@@ -331,11 +368,12 @@ void College::printSem() {
   return;
 }
 void College::changeClass() {
-  cin.clear();   // Clear any error flags
-  cin.ignore();  // Ignore leftover input
+  cin.clear();
+  cin.ignore();
   size_t resp;
 
-  // Select semester
+  // Select the semester that has the class. Then select the class you would
+  // like to change.
   while (true) {
     cout << "\nWhat semester is the class you would like to change in? (Enter "
             "the number of the semester)\n";
@@ -345,13 +383,13 @@ void College::changeClass() {
     cout << endl;
 
     if (cin >> resp && resp > 0 && resp <= semesters.size()) {
-      resp--;  // Adjust for zero-based indexing
+      resp--;
       break;
     } else {
       cout << "Invalid input. Please enter a number between 1 and "
            << semesters.size() << ".\n";
-      cin.clear();   // Clear any error flags
-      cin.ignore();  // Ignore leftover input
+      cin.clear();
+      cin.ignore();
     }
   }
 
@@ -388,8 +426,8 @@ void College::changeClass() {
         cout << "Total Grade:   " << semesters[resp].classes[num].grade << endl;
 
         cout << "\nWhat would you like the new grade to be? ";
-        double grade;
-        if (cin >> grade) {
+        string grade;
+        if (cin >> grade && validGrade(grade)) {
           semesters[resp].classes[num].grade = grade;
           cout << "Grade updated successfully.\n";
           return;
@@ -408,11 +446,11 @@ void College::changeClass() {
   }
 }
 void College::deleteClass() {
-  cin.clear();   // Clear any error flags
-  cin.ignore();  // Ignore leftover input
+  cin.clear();
+  cin.ignore();
   size_t resp;
 
-  // Select semester
+  // Select a semester that has a class that the user wants to delete.
   while (true) {
     cout << "\nWhat semester is the class you would like to delete in? (Enter "
             "the number of the semester)\n";
@@ -422,7 +460,7 @@ void College::deleteClass() {
     cout << endl;
 
     if (cin >> resp && resp > 0 && resp <= semesters.size()) {
-      resp--;  // Adjust for zero-based indexing
+      resp--;
       break;
     } else {
       cout << "Invalid input. Please enter a number between 1 and "
@@ -457,6 +495,8 @@ void College::deleteClass() {
     if (all_of(response.begin(), response.end(), ::isdigit)) {
       size_t num = stoi(response) - 1;
 
+      // Add all classes other than the one being deleted to a new vector then
+      // set semesters = to the temp vector.
       if (num >= 0 && num < semesters[resp].classes.size()) {
         vector<MyClass> tempClasses;
         for (size_t j = 0; j < semesters[resp].classes.size(); j++) {
@@ -490,8 +530,10 @@ void College::deleteClass() {
 }
 
 void College::deleteSem() {
-  cin.clear();   // Clear any error flags
-  cin.ignore();  // Ignore leftover input
+  cin.clear();
+  cin.ignore();
+
+  // Prompt the user for the semester they want to delete.
   if (semesters.size() > 0) {
     cout << "Current Semesters: " << endl;
     for (size_t i = 0; i < semesters.size(); i++) {
@@ -513,7 +555,8 @@ void College::deleteSem() {
 
   if (all_of(response.begin(), response.end(), ::isdigit)) {
     size_t num = stoi(response) - 1;
-
+    // Add all semesters to a temp vector except the one the user wants to
+    // delete. Set semester = tempvector.
     if (num >= 0 && num < semesters.size()) {
       vector<Semester> tempSem;
       for (size_t j = 0; j < semesters.size(); j++) {
@@ -538,6 +581,7 @@ void College::deleteSem() {
   cout << endl << "Semester successfully deleted." << endl;
 }
 
+// Print the total gpa.
 void College::printGPA() {
   calculateTotalGPA();
   cout << "Your total GPA is: " << totalGPA << endl;
