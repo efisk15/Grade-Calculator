@@ -42,7 +42,7 @@ class College {
   ~College();
 
   bool validGrade(string);              // Check if a given grade is valid.
-  double calculateSemGrade(Semester);   // Return a semester's grade based on its classes's grades.
+  void calculateSemGrade(Semester&);   // Return a semester's grade based on its classes's grades.
   void calculateTotalGPA();             // Solve for the total GPA based on each semester's gpa and credit hours.
   void createFile();                    // Print data to a given file.
   void addSemester();                   // Add a semester to the vector of semesters.

@@ -51,7 +51,7 @@ bool College::validGrade(string grade) {
   }
 }
 
-double College::calculateSemGrade(Semester sem) {
+void College::calculateSemGrade(Semester& sem) {
   map<string, double> gradepoints;
   gradepoints["A"] = 4.00;
   gradepoints["A-"] = 3.67;
@@ -75,9 +75,10 @@ double College::calculateSemGrade(Semester sem) {
     SemGPA += gradepoints[grade] * credits;
   }
   if (sem.semCredits == 0) {
-    return 0;
+    sem.semGPA = 0;
+    return;
   }
-  return SemGPA / sem.semCredits;
+  sem.semGPA = SemGPA / sem.semCredits;
 }
 void College::calculateTotalGPA() {
   double semGPA = 0.0;
@@ -303,17 +304,19 @@ void College::addClass() {
     while (true) {
       cout << "How many credit hours is the class worth?" << endl;
       if (cin >> creditHours && creditHours < 6 && creditHours > 0) {
-      } else {
-        cin.clear();
-        cin.ignore();
-        continue;
+        break;
       }
-
+      cout << "Not a valid number of credit hours.(1-5)" << endl;
+      cin.clear();
+      cin.ignore();
+    }
+    while (true) {
       cout << endl
            << "What is your current grade in the class?(Ex. A-)" << endl;
       if (cin >> grade && validGrade(grade)) {
         break;
       }
+      cout << "Not a valid Grade.(A-F)" << endl;
 
       cin.clear();   // Clear any error flags
       cin.ignore();  // Ignore leftover input
@@ -325,9 +328,8 @@ void College::addClass() {
 
     semesters[resp].classes.push_back(newClass);
     semesters[resp].semCredits += creditHours;
-    semesters[resp].semGPA = calculateSemGrade(semesters[resp]);
+    calculateSemGrade(semesters[resp]);
     totalCredits += creditHours;
-    calculateTotalGPA();
     cout << "\nClass successfully added." << endl;
   } else {
     cout << "There are not any semesters created yet. Use the -as command to "
@@ -436,6 +438,7 @@ void College::changeClass() {
         string grade;
         if (cin >> grade && validGrade(grade)) {
           semesters[resp].classes[num].grade = grade;
+          calculateSemGrade(semesters[resp]);
           cout << "Grade updated successfully.\n";
           return;
         } else {
